@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from server.services.soldier_services import fetch_a_soldier, fetch_all_soldiers
+from controllers.soldier_services import fetch_a_soldier, fetch_all_soldiers
 
 zeraki_api = Blueprint('api', __name__)
 
