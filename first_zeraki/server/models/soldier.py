@@ -5,7 +5,7 @@ from .db import db
 
 class Soldier(db.Model, SerializerMixin):
     __tablename__ = "soldiers"
-    serialize_only = ('id', 'name', 'rank')
+    serialize_only = ('id', 'name', 'rank', 'handgun.serial_number', 'machines.type')
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -17,7 +17,7 @@ class Soldier(db.Model, SerializerMixin):
     handgun = db.relationship("HandGun", back_populates="soldier", uselist=False, cascade="all, delete-orphan")
 
     # has many relationship
-    machine = db.relationship("Machine", back_populates="machines", cascade="all, delete-orphan")
+    machines = db.relationship("Machine", back_populates="soldier", cascade="all, delete-orphan")
 
 
     def __repr__(self):
