@@ -1,1 +1,21 @@
 We write oop and use an orm to connect to the database
+
+
+Relationships in a relational database
+1. One to One
+ => One record in a table is linked to exactly on record in another
+2. One to Many
+ => One record in a table is linked to multiple records in another 
+3. Many to Many
+
+We've been using an orm
+-> Define models
+-> Manage Relationships
+-> Handle database migrations
+
+Key concepts
+=> Foreign Keys
+=> db.Relationships()
+=> back_populates
+=> Cascades
+=> Database migrations

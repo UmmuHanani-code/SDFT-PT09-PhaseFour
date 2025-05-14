@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_migrate import Migrate
-from models.soldier import db
+from models import db
 from views.soldier_views import zeraki_api
 
 import os

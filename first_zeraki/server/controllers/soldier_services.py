@@ -12,6 +12,8 @@ def fetch_a_soldier(id):
 def fetch_all_soldiers():
     try:
         soldiers = Soldier.query.all()
+        # import pdb
+        # pdb.set_trace()
         return {
             "count" : len(soldiers),
             "soldiers" : [soldier.to_dict() for soldier in soldiers]
