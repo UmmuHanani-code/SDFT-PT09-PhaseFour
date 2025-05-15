@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import logging
-from random import choice
+from random import choice, sample
 from faker import Faker
 from app import zeraki, db
 from models.soldier import Soldier
 from models.machine import Machine
 from models.hand_gun import HandGun
+from models.team import Team, soldier_team
 
 
 # Initialize Faker
@@ -17,13 +18,20 @@ ranks = ['Sergeant', 'Staff Sergeant', 'Lieutenant', 'Captain']
 # Predefined machine types and statuses
 machine_types = ['Drone', 'Tank', 'Jeep', 'Robot', 'APC']
 machine_statuses = ['Operational', 'Maintenance', 'Decommissioned']
+team_names = ['Alpha Squad', 'Bravo Team', 'Charlie Unit']
 
 with zeraki.app_context():
     try:
-
+        db.session.execute(soldier_team.delete())
         Machine.query.delete()
         HandGun.query.delete()
         Soldier.query.delete()
+        Team.query.delete()
+        db.session.commit()
+
+        # Create teams
+        teams = [Team(name=name) for name in team_names]
+        db.session.add_all(teams)
         db.session.commit()
 
         # Create soldiers
@@ -64,8 +72,13 @@ with zeraki.app_context():
         db.session.add_all(machines)
         db.session.commit()
 
-  
+        # connect soldier to teams
+        for soldier in soldiers:
+            assigned_teams = sample(teams, k=choice([1, 2]))
+            soldier.teams.extend(assigned_teams)  # Adds rows to soldier_team
+        db.session.commit()
 
+  
     except Exception as e:
         db.session.rollback()
         raise

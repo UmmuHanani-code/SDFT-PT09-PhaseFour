@@ -1,11 +1,12 @@
 from sqlalchemy_serializer import SerializerMixin
 from datetime import datetime, timezone
 from .db import db
+from .join_table import soldier_team
 
 
 class Soldier(db.Model, SerializerMixin):
     __tablename__ = "soldiers"
-    serialize_only = ('id', 'name', 'rank', 'handgun.serial_number', 'machines.type')
+    serialize_only = ('id', 'name', 'rank', 'handgun.serial_number', 'machines.type', "teams.name")
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -19,6 +20,12 @@ class Soldier(db.Model, SerializerMixin):
     # has many relationship
     machines = db.relationship("Machine", back_populates="soldier", cascade="all, delete-orphan")
 
+    # connection to the team through the join table
+    teams = db.relationship(
+        "Team",
+        secondary=soldier_team,
+        back_populates="soldiers"
+    )
 
     def __repr__(self):
         return f"<Soldier {self.id}, {self.name}, {self.rank}>"

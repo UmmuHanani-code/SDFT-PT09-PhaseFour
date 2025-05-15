@@ -7,6 +7,7 @@ Relationships in a relational database
 2. One to Many
  => One record in a table is linked to multiple records in another 
 3. Many to Many
+ => Multiple record in one table can be associated with multiple records in another table
 
 We've been using an orm
 -> Define models
@@ -19,3 +20,18 @@ Key concepts
 => back_populates
 => Cascades
 => Database migrations
+=> Database normalization
+
+
+Many to Many Key concepts
+=> Association Table/Join Table:
+    #=> A table that links two table in a many-to-many Relationships
+    #=> It only stores a pair of foreign key
+    A simple table with two columns
+    Used when you don't need extra details, only used to see whose connected
+
+A soldier is in multiple teams, and a team can have multiple soldiers
+
+=> John Doe is in Alpha Squad, Delta Ops, and Navy seal 5
+=> Delta Ops has John Doe, Jane Doe, Jack Bower, John Wick, and Bob
+=> Alpha Squad has John Doe, John Wick, and Ethan Hawke
