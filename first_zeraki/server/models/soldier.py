@@ -27,6 +27,14 @@ class Soldier(db.Model, SerializerMixin):
         back_populates="soldiers"
     )
 
+    # connection to the mission through the Association object
+    mission_associations = db.relationship(
+        'SoldierMission',
+        back_populates='soldier',
+        cascade='all, delete-orphan',
+        lazy='select'
+    )
+
     def __repr__(self):
         return f"<Soldier {self.id}, {self.name}, {self.rank}>"
     

@@ -32,6 +32,22 @@ Many to Many Key concepts
 
 A soldier is in multiple teams, and a team can have multiple soldiers
 
-=> John Doe is in Alpha Squad, Delta Ops, and Navy seal 5
-=> Delta Ops has John Doe, Jane Doe, Jack Bower, John Wick, and Bob
-=> Alpha Squad has John Doe, John Wick, and Ethan Hawke
+#=> John Doe is in Alpha Squad, Delta Ops, and Navy seal 5
+#=> Delta Ops has John Doe, Jane Doe, Jack Bower, John Wick, and Bob
+#=> Alpha Squad has John Doe, John Wick, and Ethan Hawke
+
+=> Association Objects
+    This a full SQLAlchemy model that acts as middle many between 2 tables in a many-to-many relationship
+    = Foreign Keys
+    = Extra columns
+    = Relationships
+    A many to many relationship implemented as 2 one-to-many relationships
+
+
+Soldiers can join multiple missions, and each mission can have multiple soldiers
+
+One soldier can be on many missions
+ =>John Wick is a sniper in manhantan, a medic in black_hawk_down, and a paratropper in skyfall
+
+One mission can involve many soldiers
+ => Night Hawk needs a medic, a pilot, a linguistic expert, and a commander
