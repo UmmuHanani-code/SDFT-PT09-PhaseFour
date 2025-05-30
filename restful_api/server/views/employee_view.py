@@ -1,23 +1,30 @@
-from flask_restful import Resource, reqparse
-from server.controllers.employee_services import EmployeeController
+from flask_restful import Resource, request
+from controllers.employee_services import EmployeeController, HomeController
 
+
+
+class HomeView(Resource):
+    def get(self):
+        return HomeController.homepage()
 
 class EmployeeResourceView(Resource):
-    
-    def get(self, id):
-        pass
+    def get (self, employee_id):
 
-    def put(self, id):
-        pass
+        return EmployeeController.get_employee(employee_id), 200
 
-    def delete(self, id):
-        pass
+    def put(self, employee_id):
+        data = request.get_json()
+        return EmployeeController.update_employee(employee_id, data), 200
+
+    def delete(self, employee_id):
+        return EmployeeController.delete_employee(employee_id), 200
+
 
 class FetchAllEmployeeResourceView(Resource):
-    
     def get(self):
-        return EmployeeController.get_all_employees()
-
+        return EmployeeController.get_all_employees(), 200
 
     def post(self):
-        pass
+        data = request.get_json()
+        return EmployeeController.create_employee(data), 201
+

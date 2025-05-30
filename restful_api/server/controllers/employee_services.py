@@ -1,12 +1,19 @@
 # SOLID Principles
 
-from server.models import db, Employee
+from models import db, Employee
 from flask import abort
+
+class HomeController:
+    @staticmethod
+    def homepage():
+        return {"message": "Welcome to the Employee API!"}, 200
 
 class EmployeeController:
     @staticmethod
+    def homepage():
+        return {"message": "Welcome to the Employee API!"}, 200
+    @staticmethod
     def get_all_employees():
-        # code to limit who access all users
         employees = Employee.query.all()
         return [employee.to_dict() for employee in employees]
 
@@ -21,7 +28,7 @@ class EmployeeController:
     def create_employee(data):
         if Employee.query.filter_by(email=data['email']).first():
             abort(400, description="Email already exists")
-        
+
         employee = Employee(
             name=data['name'],
             email=data['email'],
@@ -37,10 +44,10 @@ class EmployeeController:
         employee = Employee.query.get(employee_id)
         if not employee:
             abort(404, description="Employee not found")
-        
+
         if 'email' in data and data['email'] != employee.email and Employee.query.filter_by(email=data['email']).first():
             abort(400, description="Email already exists")
-        
+
         employee.name = data.get('name', employee.name)
         employee.email = data.get('email', employee.email)
         employee.department = data.get('department', employee.department)
@@ -56,4 +63,3 @@ class EmployeeController:
         db.session.delete(employee)
         db.session.commit()
         return {"message": "Employee deleted successfully"}
-    
